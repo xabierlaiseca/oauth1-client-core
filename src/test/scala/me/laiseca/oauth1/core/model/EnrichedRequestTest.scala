@@ -45,6 +45,13 @@ class EnrichedRequestTest extends FlatSpec with Matchers {
     testObj.baseUrl shouldBe "https://example.org/path"
   }
 
+  it should "only convert scheme and host to lower case" in {
+    val original = new Request("POST", "HTTPs://EXAMPLE.ORG/PATH", Map.empty, Map.empty)
+    val testObj = EnrichedRequest(Map.empty, original)
+
+    testObj.baseUrl shouldBe "https://example.org/PATH"
+  }
+
   "method" should "return the value specified in the original request" in {
     val original = new Request("POST", "https://example.org/path#content", Map.empty, Map.empty)
     val testObj = EnrichedRequest(Map.empty, original)

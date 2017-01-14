@@ -10,11 +10,16 @@ private[oauth1] case class EnrichedRequest(oAuth1Parameters: OAuth1Parameters,
 
   val baseUrl: String = {
     val uri = new URI(url)
+    val scheme = uri.getScheme.toLowerCase()
+    val host = uri.getHost.toLowerCase()
+
     Some(uri.getPort)
-      .filterNot( isStandardPort(_, uri.getScheme) )
-      .map ( port => s"${uri.getScheme}://${uri.getHost}:$port${uri.getPath}" )
-      .getOrElse(s"${uri.getScheme}://${uri.getHost}${uri.getPath}")
+      .filterNot( isStandardPort(_, scheme) )
+      .map ( port => s"$scheme://${uri.getHost.toLowerCase()}:$port${uri.getPath}" )
+      .getOrElse(s"$scheme://$host${uri.getPath}")
   }
+
+
 
   private[this] def isStandardPort(port: Int, scheme: String) =
     (port < 0) || (port == 80 && scheme == "http") || (port == 443 && scheme == "https")

@@ -1,27 +1,27 @@
 package me.laiseca.oauth1.core.signature
 
-import me.laiseca.oauth1.core.model.{EnrichedRequest, Parameters}
+import me.laiseca.oauth1.core.model.{OAuth1Request, Parameters}
 import me.laiseca.oauth1.core.util.UrlEncode
 
-class SignatureBaseBuilder {
+object SignatureBaseBuilder {
 
-  def build(request: EnrichedRequest): String = concat {
+  def build(request: OAuth1Request): String = concat {
     List(
-      UrlEncode.encode(request.method),
+      UrlEncode.encode(request.original.method),
       UrlEncode.encode(request.baseUrl),
       buildParametersString(request))
   }
 
-  private[this] def buildParametersString(request: EnrichedRequest): String =
+  private[this] def buildParametersString(request: OAuth1Request): String =
     (extractParameters _ andThen
       normalize andThen
       (UrlEncode.encode(_))
     )(request)
 
-  private[this] def extractParameters(request: EnrichedRequest): Parameters =
+  private[this] def extractParameters(request: OAuth1Request): Parameters =
     request.oAuth1Parameters.map { case (key, value) => key.name -> value } ++
-      request.queryParameters ++
-      request.formParameters
+      request.original.queryParameters ++
+      request.original.formParameters
 
   private[this] def normalize(parameters: Parameters): String = concat {
     parameters

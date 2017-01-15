@@ -2,9 +2,7 @@ package me.laiseca.oauth1.core.model
 
 sealed abstract class OAuth1Parameter(val name: String)
 case object ConsumerKeyParameter extends OAuth1Parameter("oauth_consumer_key")
-case object ConsumerSecretParameter extends OAuth1Parameter("oauth_consumer_secret")
 case object TokenParameter extends OAuth1Parameter("oauth_token")
-case object TokenSecretParameter extends OAuth1Parameter("oauth_token_secret")
 case object SignatureMethodParameter extends OAuth1Parameter("oauth_signature_method")
 case object SignatureParameter extends OAuth1Parameter("oauth_signature")
 case object TimestampParameter extends OAuth1Parameter("oauth_timestamp")

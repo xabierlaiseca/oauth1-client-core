@@ -4,12 +4,10 @@ import java.net.URI
 
 class Request(val method: String, val url: String, val queryParameters: Parameters, val formParameters: Parameters)
 
-private[oauth1] case class EnrichedRequest(oAuth1Parameters: OAuth1Parameters,
-                                           private val request: Request
-                                          ) extends Request(request.method, request.url, request.queryParameters, request.formParameters) {
+private[oauth1] case class OAuth1Request(original: Request, oAuth1Parameters: OAuth1Parameters) {
 
   val baseUrl: String = {
-    val uri = new URI(url)
+    val uri = new URI(original.url)
     val scheme = uri.getScheme.toLowerCase()
     val host = uri.getHost.toLowerCase()
 
@@ -18,8 +16,6 @@ private[oauth1] case class EnrichedRequest(oAuth1Parameters: OAuth1Parameters,
       .map ( port => s"$scheme://${uri.getHost.toLowerCase()}:$port${uri.getPath}" )
       .getOrElse(s"$scheme://$host${uri.getPath}")
   }
-
-
 
   private[this] def isStandardPort(port: Int, scheme: String) =
     (port < 0) || (port == 80 && scheme == "http") || (port == 443 && scheme == "https")

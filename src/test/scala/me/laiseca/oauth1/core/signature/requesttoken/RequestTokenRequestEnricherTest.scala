@@ -6,7 +6,7 @@ import org.scalatest.{FlatSpec, Matchers}
 class RequestTokenRequestEnricherTest extends FlatSpec with Matchers {
 
   "enrich" should "add OAuth1 parameters to the request" in {
-    val original = new Request("POST", "http://example.org/path", Map.empty, Map.empty)
+    val original = new Request("POST", "http://example.org/path", List.empty, List.empty)
     val nonce = "1234567890"
     val timestamp = 11111111L
     val consumerKey = "consumer_key"
@@ -17,7 +17,7 @@ class RequestTokenRequestEnricherTest extends FlatSpec with Matchers {
     val actual = testObj.enrich(original, consumerKey, callback, algorithm)
 
     actual shouldBe EnrichedRequest(
-      Map(
+      List(
         NonceParameter -> nonce,
         VersionParameter -> "1.0",
         SignatureMethodParameter -> algorithm.name,

@@ -1,6 +1,6 @@
 package me.laiseca.oauth1.core
 
 package object model {
-  type Parameters = Map[String, String]
-  type OAuth1Parameters = Map[OAuth1Parameter, String]
+  type Parameters = List[(String, String)]
+  type OAuth1Parameters = List[(OAuth1Parameter, String)]
 }

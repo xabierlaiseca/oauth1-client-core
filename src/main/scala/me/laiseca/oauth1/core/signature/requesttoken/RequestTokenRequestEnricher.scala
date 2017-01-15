@@ -11,13 +11,13 @@ class RequestTokenRequestEnricher(nonceGenerator: () => String,
     )
 
   private[this] def additionalParameters(consumerKey: String, callback: String): OAuth1Parameters =
-    Map(
+    List(
       ConsumerKeyParameter -> consumerKey,
       CallbackParameter -> callback
     )
 
   private[this] def baseParameters(algorithm: SignatureAlgorithm): OAuth1Parameters =
-    Map(
+    List(
       NonceParameter -> nonceGenerator(),
       VersionParameter -> "1.0",
       SignatureMethodParameter -> algorithm.name,

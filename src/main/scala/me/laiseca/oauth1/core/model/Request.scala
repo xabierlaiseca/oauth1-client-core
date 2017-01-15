@@ -5,8 +5,8 @@ import java.net.URI
 class Request(val method: String, val url: String, val queryParameters: Parameters, val formParameters: Parameters)
 
 private[oauth1] case class EnrichedRequest(oAuth1Parameters: OAuth1Parameters,
-                                           private val r: Request
-                                          ) extends Request(r.method, r.url, r.queryParameters, r.formParameters) {
+                                           private val request: Request
+                                          ) extends Request(request.method, request.url, request.queryParameters, request.formParameters) {
 
   val baseUrl: String = {
     val uri = new URI(url)

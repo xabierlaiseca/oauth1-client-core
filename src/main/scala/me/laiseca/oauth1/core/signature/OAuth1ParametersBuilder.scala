@@ -4,8 +4,7 @@ import me.laiseca.oauth1.core.model.{CallbackParameter, ConsumerKeyParameter, No
 
 object OAuth1ParametersBuilder {
 
-  def base(nonceGenerator: () => String, timestamper: () => Long)
-          (algorithm: SignatureAlgorithm): OAuth1Parameters =
+  def base(nonceGenerator: () => String, timestamper: () => Long, algorithm: SignatureAlgorithm): OAuth1Parameters =
     List(
       NonceParameter -> nonceGenerator(),
       VersionParameter -> "1.0",

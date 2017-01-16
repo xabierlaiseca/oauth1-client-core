@@ -10,7 +10,7 @@ class OAuth1ParametersBuilderTest extends FlatSpec with Matchers {
     val algorithm = HmacSHA1
 
     val testFunction = OAuth1ParametersBuilder.base _
-    val actual = testFunction(() => nonce, () => timestamp)(algorithm)
+    val actual = testFunction(() => nonce, () => timestamp, algorithm)
 
     actual shouldBe List(
       NonceParameter -> nonce,

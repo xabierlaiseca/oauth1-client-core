@@ -2,7 +2,7 @@ package me.laiseca.oauth1.core.model
 
 import java.net.URI
 
-class Request(val method: String, val url: String, val queryParameters: Parameters, val formParameters: Parameters)
+case class Request(method: String, url: String, queryParameters: Parameters, formParameters: Parameters)
 
 private[oauth1] case class OAuth1Request(original: Request, oAuth1Parameters: OAuth1Parameters) {
 

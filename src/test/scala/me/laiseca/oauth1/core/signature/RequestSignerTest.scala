@@ -1,9 +1,9 @@
 package me.laiseca.oauth1.core.signature
 
-import me.laiseca.oauth1.core.model.{HmacSHA256, Request}
+import me.laiseca.oauth1.core.model.{CallbackParameter, ConsumerKeyParameter, HmacSHA256, Request}
 import org.scalatest.{FlatSpec, Matchers}
 
-class RequestTokenRequestSignatureTest extends FlatSpec with Matchers {
+class RequestSignerTest extends FlatSpec with Matchers {
   val consumerKey = "my_consumer_key"
   val consumerSecret = "my_consumer_secret"
   val callback = "https://my.host.com/oauth1/callback"
@@ -11,17 +11,22 @@ class RequestTokenRequestSignatureTest extends FlatSpec with Matchers {
   val algorithm = HmacSHA256
   val timestamp = 1484510633L
 
-  "signature" should "generate an authorization headers with OAuth1 parameters on it" in {
+  val additionalParameters = List(
+    ConsumerKeyParameter -> consumerKey,
+    CallbackParameter -> callback
+  )
+
+  "sign" should "generate an authorization headers with OAuth1 parameters on it" in {
     val expected = List(
       buildExpectedAuthorizationHeader("X%2BoyS8Hs0Ff5IcG9WYUXgYISu4BqbjL4Z3Qdd1Zpk%2BM%3D"))
 
     val request = Request("POST", "https://example.org/oauth/initiate", Nil, Nil)
 
-    val testObject = new RequestTokenRequestSignature(
-      consumerKey, consumerSecret, callback, algorithm, () => nonce, () => timestamp
+    val testObject = new RequestSigner(
+      consumerSecret, algorithm, () => nonce, () => timestamp
     )
 
-    testObject.signature(request) shouldBe expected
+    testObject.sign(request, additionalParameters) shouldBe expected
   }
 
   it should "generate an authorization headers with OAuth1 parameters on it when query parameters are provided" in {
@@ -30,11 +35,11 @@ class RequestTokenRequestSignatureTest extends FlatSpec with Matchers {
 
     val request = Request("POST", "https://example.org/oauth/initiate", ("query_param" -> "query_value") :: Nil, Nil)
 
-    val testObject = new RequestTokenRequestSignature(
-      consumerKey, consumerSecret, callback, algorithm, () => nonce, () => timestamp
+    val testObject = new RequestSigner(
+      consumerSecret, algorithm, () => nonce, () => timestamp
     )
 
-    testObject.signature(request) shouldBe expected
+    testObject.sign(request, additionalParameters) shouldBe expected
   }
 
   it should "generate an authorization headers with OAuth1 parameters on it when body parameters are provided" in {
@@ -43,11 +48,11 @@ class RequestTokenRequestSignatureTest extends FlatSpec with Matchers {
 
     val request = Request("POST", "https://example.org/oauth/initiate", Nil, ("body_param" -> "body_value") :: Nil)
 
-    val testObject = new RequestTokenRequestSignature(
-      consumerKey, consumerSecret, callback, algorithm, () => nonce, () => timestamp
+    val testObject = new RequestSigner(
+      consumerSecret, algorithm, () => nonce, () => timestamp
     )
 
-    testObject.signature(request) shouldBe expected
+    testObject.sign(request, additionalParameters) shouldBe expected
   }
 
 

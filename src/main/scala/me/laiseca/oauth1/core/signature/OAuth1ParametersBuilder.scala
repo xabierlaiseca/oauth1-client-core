@@ -1,6 +1,6 @@
 package me.laiseca.oauth1.core.signature
 
-import me.laiseca.oauth1.core.model.{CallbackParameter, ConsumerKeyParameter, NonceParameter, OAuth1Parameters, SignatureAlgorithm, SignatureMethodParameter, TimestampParameter, VersionParameter}
+import me.laiseca.oauth1.core.model.{CallbackParameter, ConsumerKeyParameter, NonceParameter, OAuth1Parameters, SignatureAlgorithm, SignatureMethodParameter, TimestampParameter, TokenParameter, VerifierParameter, VersionParameter}
 
 object OAuth1ParametersBuilder {
 
@@ -16,5 +16,18 @@ object OAuth1ParametersBuilder {
     List(
       ConsumerKeyParameter -> consumerKey,
       CallbackParameter -> callback
+    )
+
+  def accessToken(consumerKey: String, requestToken: String, verifier: String): OAuth1Parameters =
+    List(
+      ConsumerKeyParameter -> consumerKey,
+      TokenParameter -> requestToken,
+      VerifierParameter -> verifier
+    )
+
+  def authenticatedRequest(consumerKey:String, accessToken: String): OAuth1Parameters =
+    List(
+      ConsumerKeyParameter -> consumerKey,
+      TokenParameter -> accessToken
     )
 }

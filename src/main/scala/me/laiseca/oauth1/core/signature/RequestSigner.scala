@@ -4,43 +4,32 @@ import java.util.UUID
 
 import me.laiseca.oauth1.core.model.{Headers, OAuth1Parameters, OAuth1Request, Request, SignatureAlgorithm, SignatureParameter}
 
-class RequestTokenRequestSignature private[signature](consumerKey: String,
-                                                      consumerSecret: String,
-                                                      callback: String,
-                                                      algorithm: SignatureAlgorithm,
-                                                      nonceGenerator: () => String,
-                                                      timestamper: () => Long) {
+class RequestSigner private[signature](consumerSecret: String,
+                                       algorithm: SignatureAlgorithm,
+                                       nonceGenerator: () => String = () => UUID.randomUUID().toString,
+                                       timestamper: () => Long = () => System.currentTimeMillis() / 1000) {
 
-  def this(consumerKey: String,
-           consumerSecret: String,
-           callback: String,
-           algorithm: SignatureAlgorithm) {
+  def this(consumerSecret: String, algorithm: SignatureAlgorithm) =
     this(
-      consumerKey = consumerKey,
       consumerSecret = consumerSecret,
-      callback = callback,
       algorithm = algorithm,
       nonceGenerator = () => UUID.randomUUID().toString,
       timestamper = () => System.currentTimeMillis() / 1000)
-  }
 
-  def signature(request: Request): Headers =
+  def sign(request: Request, additionalParameters: OAuth1Parameters): Headers =
     (emptyOAuthRequest _ andThen
-      addBaseParameters andThen
-      addRequestTokenParameters andThen
+      addParameters(additionalParameters) andThen
       addSignatureParameter andThen
       buildSignatureHeaders) (request)
 
+
   private[this] def emptyOAuthRequest(request: Request): OAuth1Request = OAuth1Request(request, Nil)
 
-  private[this] def addBaseParameters(request: OAuth1Request): OAuth1Request =
-    addParameters(request, baseParametersGenerator())
+  private[this] def addParameters(additionalParameters: OAuth1Parameters)(request: OAuth1Request): OAuth1Request =
+    addParameters(request, baseParametersGenerator() ++ additionalParameters)
 
   private[this] def baseParametersGenerator(): OAuth1Parameters =
     OAuth1ParametersBuilder.base(nonceGenerator, timestamper, algorithm)
-
-  private[this] def addRequestTokenParameters(request: OAuth1Request): OAuth1Request =
-    addParameters(request, OAuth1ParametersBuilder.requestToken(consumerKey, callback))
 
   private[this] def addSignatureParameter(request: OAuth1Request): OAuth1Request =
     addParameters(request, List(

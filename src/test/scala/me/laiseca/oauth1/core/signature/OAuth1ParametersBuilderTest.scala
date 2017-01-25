@@ -1,6 +1,6 @@
 package me.laiseca.oauth1.core.signature
 
-import me.laiseca.oauth1.core.model.{CallbackParameter, ConsumerKeyParameter, HmacSHA1, NonceParameter, SignatureMethodParameter, TimestampParameter, VersionParameter}
+import me.laiseca.oauth1.core.model.{CallbackParameter, ConsumerKeyParameter, HmacSHA1, NonceParameter, SignatureMethodParameter, TimestampParameter, TokenParameter, VerifierParameter, VersionParameter}
 import org.scalatest.{FlatSpec, Matchers}
 
 class OAuth1ParametersBuilderTest extends FlatSpec with Matchers {
@@ -31,6 +31,33 @@ class OAuth1ParametersBuilderTest extends FlatSpec with Matchers {
       ConsumerKeyParameter -> consumerKey,
       CallbackParameter -> callback
     )
+  }
 
+  "accessToken" should "return a list of access token request specific parameters" in {
+    val consumerKey = "consumer_key"
+    val requestToken = "token"
+    val verifier = "verifier"
+
+    val testFunction = OAuth1ParametersBuilder.accessToken _
+    val actual = testFunction(consumerKey, requestToken, verifier)
+
+    actual shouldBe List(
+      ConsumerKeyParameter -> consumerKey,
+      TokenParameter -> requestToken,
+      VerifierParameter -> verifier
+    )
+  }
+
+  "authenticatedRequest" should "return a list of authenticated request specific" in {
+    val consumerKey = "consumer_key"
+    val accessToken = "token"
+
+    val testFunction = OAuth1ParametersBuilder.authenticatedRequest _
+    val actual = testFunction(consumerKey, accessToken)
+
+    actual shouldBe List(
+      ConsumerKeyParameter -> consumerKey,
+      TokenParameter -> accessToken
+    )
   }
 }

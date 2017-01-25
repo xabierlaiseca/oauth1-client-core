@@ -1,7 +1,7 @@
-package me.laiseca.oauth1.core.signature
+package me.laiseca.oauth1.client.core.signature
 
-import me.laiseca.oauth1.core.model.{Headers, OAuth1Parameters, OAuth1Request}
-import me.laiseca.oauth1.core.util.UrlEncode
+import me.laiseca.oauth1.client.core.model.{Headers, OAuth1Parameters}
+import me.laiseca.oauth1.client.core.util.UrlEncode
 
 object SignatureHeadersBuilder {
   def build(parameters: OAuth1Parameters): Headers =

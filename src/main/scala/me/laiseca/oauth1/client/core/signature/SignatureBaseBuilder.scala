@@ -1,7 +1,7 @@
-package me.laiseca.oauth1.core.signature
+package me.laiseca.oauth1.client.core.signature
 
-import me.laiseca.oauth1.core.model.{OAuth1Request, Parameters}
-import me.laiseca.oauth1.core.util.UrlEncode
+import me.laiseca.oauth1.client.core.model.{OAuth1Request, Parameters}
+import me.laiseca.oauth1.client.core.util.UrlEncode
 
 object SignatureBaseBuilder {
 

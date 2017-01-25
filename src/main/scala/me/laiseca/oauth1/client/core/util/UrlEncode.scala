@@ -1,8 +1,8 @@
-package me.laiseca.oauth1.core.util
+package me.laiseca.oauth1.client.core.util
 
 import java.nio.charset.Charset
 
-import me.laiseca.oauth1.core.Defaults
+import me.laiseca.oauth1.client.core.Defaults
 import org.apache.commons.codec.net.URLCodec
 
 object UrlEncode {

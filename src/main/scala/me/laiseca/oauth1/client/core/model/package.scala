@@ -1,4 +1,4 @@
-package me.laiseca.oauth1.core
+package me.laiseca.oauth1.client.core
 
 package object model {
   type Parameters = List[(String, String)]

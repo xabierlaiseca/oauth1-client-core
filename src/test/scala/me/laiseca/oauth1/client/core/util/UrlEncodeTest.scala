@@ -1,4 +1,4 @@
-package me.laiseca.oauth1.core.util
+package me.laiseca.oauth1.client.core.util
 
 import org.scalatest.{FlatSpec, Matchers}
 

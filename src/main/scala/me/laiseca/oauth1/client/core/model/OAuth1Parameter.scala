@@ -1,4 +1,4 @@
-package me.laiseca.oauth1.core.model
+package me.laiseca.oauth1.client.core.model
 
 sealed abstract class OAuth1Parameter(val name: String)
 case object ConsumerKeyParameter extends OAuth1Parameter("oauth_consumer_key")

@@ -1,4 +1,4 @@
-package me.laiseca.oauth1.core
+package me.laiseca.oauth1.client.core
 
 import java.nio.charset.StandardCharsets
 

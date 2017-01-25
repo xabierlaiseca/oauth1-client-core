@@ -1,6 +1,6 @@
-package me.laiseca.oauth1.core.signature
+package me.laiseca.oauth1.client.core.signature
 
-import me.laiseca.oauth1.core.model.{CallbackParameter, ConsumerKeyParameter, NonceParameter, OAuth1Parameters, SignatureAlgorithm, SignatureMethodParameter, TimestampParameter, TokenParameter, VerifierParameter, VersionParameter}
+import me.laiseca.oauth1.client.core.model.{CallbackParameter, ConsumerKeyParameter, NonceParameter, OAuth1Parameters, SignatureAlgorithm, SignatureMethodParameter, TimestampParameter, TokenParameter, VerifierParameter, VersionParameter}
 
 object OAuth1ParametersBuilder {
 

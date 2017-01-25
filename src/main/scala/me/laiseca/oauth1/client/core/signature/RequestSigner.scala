@@ -1,8 +1,8 @@
-package me.laiseca.oauth1.core.signature
+package me.laiseca.oauth1.client.core.signature
 
 import java.util.UUID
 
-import me.laiseca.oauth1.core.model.{Headers, OAuth1Parameters, OAuth1Request, Request, SignatureAlgorithm, SignatureParameter}
+import me.laiseca.oauth1.client.core.model.{Headers, OAuth1Parameters, OAuth1Request, Request, SignatureAlgorithm, SignatureParameter}
 
 class RequestSigner private[signature](consumerSecret: String,
                                        algorithm: SignatureAlgorithm,

@@ -1,6 +1,6 @@
-package me.laiseca.oauth1.core.signature
+package me.laiseca.oauth1.client.core.signature
 
-import me.laiseca.oauth1.core.model.{ConsumerKeyParameter, OAuth1Request, Request, SignatureMethodParameter}
+import me.laiseca.oauth1.client.core.model.{ConsumerKeyParameter, OAuth1Request, Request, SignatureMethodParameter}
 import org.scalatest.{FlatSpec, Matchers}
 
 class SignatureBaseBuilderTest extends FlatSpec with Matchers {

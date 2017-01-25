@@ -1,6 +1,6 @@
-package me.laiseca.oauth1.core.signature
+package me.laiseca.oauth1.client.core.signature
 
-import me.laiseca.oauth1.core.model.{CallbackParameter, NonceParameter, SignatureMethodParameter, TimestampParameter}
+import me.laiseca.oauth1.client.core.model.{CallbackParameter, NonceParameter, SignatureMethodParameter, TimestampParameter}
 import org.scalatest.{FlatSpec, Matchers}
 
 class SignatureHeadersBuilderTest extends FlatSpec with Matchers {

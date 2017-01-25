@@ -1,7 +1,7 @@
-package me.laiseca.oauth1.core.model
+package me.laiseca.oauth1.client.core.model
 
-import me.laiseca.oauth1.core.Defaults
-import me.laiseca.oauth1.core.util.UrlEncode
+import me.laiseca.oauth1.client.core.Defaults
+import me.laiseca.oauth1.client.core.util.UrlEncode
 import org.apache.commons.codec.binary.Base64
 import org.apache.commons.codec.digest.HmacUtils
 

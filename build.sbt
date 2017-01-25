@@ -1,5 +1,5 @@
 organization := "me.laiseca.oauth1"
-name := "oauth1-core"
+name := "oauth1-client-core"
 version := "0.1"
 
 scalaVersion := "2.12.1"
